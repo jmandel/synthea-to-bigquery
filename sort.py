@@ -3,9 +3,6 @@ import glob
 import ujson as json
 import gzip
 
-START_FILE = 1
-END_FILE = 12
-
 numfile = 0
 handles = {}
 
@@ -20,7 +17,7 @@ def close_handles():
         handles[t].close()
         del handles[t]
 
-for segment in sorted(glob.glob('synthea_1m_fhir_3_0_May_24/*.tar.gz'))[START_FILE:END_FILE]:
+for segment in sorted(glob.glob('synthea_1m_fhir_3_0_May_24/*.tar.gz')):
     segment_dir = segment.split("/")[1].rsplit("_", 1)[0]
     print "Try", segment, segment_dir
     if not os.path.exists(segment_dir):
