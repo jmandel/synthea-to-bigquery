@@ -2,6 +2,8 @@
 
 # First, Manually download `LOINC_2.61.zip` from https://loinc.org/downloads/
 
+unzip LOINC_2.61.zip
+
 python schema.py
 
 bq mk loinc
