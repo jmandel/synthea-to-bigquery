@@ -8,5 +8,5 @@ wget http://hl7.org/fhir/STU3/definitions.json.zip
 unzip definitions.json.zip profiles-resources.json profiles-types.json
 rm definitions.json.zippushd schema
 
-mkdir sorted
-python sort.py
+mkdir prepared
+python prepare.py

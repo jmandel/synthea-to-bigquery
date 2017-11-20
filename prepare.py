@@ -59,42 +59,6 @@ def load_definitions(definitions=None, basepath=""):
 
     return definitions
 
-def schema_for(conformance, path="Patient", depth=0, stack=None):
-    if stack == None:
-        stack = []
-    assert depth < 10, stack
-
-    ret = []
-
-    if len(stack) > len(set(stack)) + 1:
-        return ret
-
-    if 'Extension' in stack and len(stack) > len(set(stack)):
-        return ret
-
-    if stack[-2:] == ['Reference', 'Identifier']:
-        return ret
-
-    for ename, deets in conformance['edges'][path].iteritems():
-        #print path, ename, bool(deets), deets
-        edoc = conformance['paths'][deets['documentation']]
-        edef = conformance['paths'][deets['definition']]
-        if ename in ['extension', 'modifierExtension'] and 'Extension' in stack:
-            continue
-
-        field = {
-            'mode': "NULLABLE",
-            'name': ename,
-            'type': self.type_for(conformance, edef)
-        }
-
-        if field['type'] == 'RECORD':
-            sub_fields = schema_for(conformance, edef['path'], depth+1, stack + [path])
-            if sub_fields:
-                field['fields'] = sub_fields
-        ret += [field]
-    return ret
-
 class PathTracer():
     def __init__(self, conformance=None):
         self.conformance = conformance or load_definitions()
@@ -157,17 +121,22 @@ class PathTracer():
 
     def generate_schema(self, segments):
         assert type(segments) == list
-        return [{
+        ret = [{
             'mode': "REPEATED" if self.is_repeated(target_path) else "NULLABLE",
-            'name': next_segment,
-            'type': self.type_for(self.conformance, {'path': prev_edges[next_segment]['definition']}),
-            'fields': self.generate_schema(segments + [next_segment])
-        } for prev_edges, next_segment, target_path in self.reachable_from(segments)] or None
+            'name': last_segment,
+            'type': self.type_for(self.conformance, {'path': edges[last_segment]['definition']}),
+            'description': self.conformance['paths'][edges[last_segment]['documentation']]['short'],
+            'fields': self.generate_schema(segments + [last_segment])
+        } for edges, last_segment, target_path in self.reachable_from(segments)] or None
 
+        for r in ret:
+            if not r['fields']:
+                del r['fields']
+        return ret
 
 def get_handle(t):
     if t not in handles:
-        handles[t] = gzip.open('sorted/'+t+'.ndjson.gz', 'a')
+        handles[t] = gzip.open('prepared/'+t+'.ndjson.gz', 'a')
     return handles[t]
 
 def close_handles():
@@ -211,5 +180,6 @@ for segment in sorted(glob.glob('synthea_1m_fhir_3_0_May_24/*.tar.gz')):
 
 for r in set([p.split(".")[0] for p in tracer.paths]):
     schema = tracer.generate_schema([r])
-    with open('sorted/%s.schema.json'%r, 'w') as schema_file:
+    with open('prepared/%s.schema.json'%r, 'w') as schema_file:
         json.dump(schema, schema_file, indent=2)
+
