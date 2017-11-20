@@ -1,10 +1,10 @@
 #!/bin/bash
 
-gsutil cp -r prepared/* gs://fhir-synthetic-ma/2017-05-24/
+gsutil cp -r ndjson/* gs://fhir-synthetic-ma/2017-05-24/
 
 bq mk synthea
 
-pushd schema
+pushd ndjson
 for resource in $(gsutil ls gs://fhir-synthetic-ma/2017-05-24 | egrep -o '[A-Z][^.]+')
 do
     echo "Load $resource"
