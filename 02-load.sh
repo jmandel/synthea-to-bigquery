@@ -5,7 +5,7 @@ gsutil cp -r ndjson/* gs://fhir-synthetic-ma/2017-05-24/
 bq mk synthea
 
 pushd ndjson
-for resource in $(gsutil ls gs://fhir-synthetic-ma/2017-05-24 | egrep -o '[A-Z][^.]+')
+for resource in $(gsutil ls gs://fhir-synthetic-ma/2017-05-24/*.ndjson.gz | egrep -o '[A-Z][^.]+')
 do
     echo "Load $resource"
 
