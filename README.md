@@ -13,6 +13,6 @@ Download the Synthea data release and prepare for BigQuery:
 *Note: This takes O(3h) as currently written.*
 
 ## TODO
-* Clean up the logic for schema generation (currently it's unreadable / unmaintainable)
-* Make it easy to parallelize (e.g. multile files per resource type so generation can run in multiple processes at once
-* Move schema generation to a post-processing step to avoid runtime overhead of walking each JSON hierachy when generating resource-spscific .ndjson files
+* [ ] Clean up the logic for schema generation (currently it's unreadable / unmaintainable)
+* [ ] Make it easy to parallelize (e.g. multile files per resource type so generation can run in multiple processes at once
+* [x] Move schema generation to a post-processing step to avoid runtime overhead of walking each JSON hierachy when generating resource-spscific .ndjson files
