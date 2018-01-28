@@ -13,10 +13,9 @@ services:
       dockerfile: Dockerfile.loader
     entrypoint: python3 loader.py
     volumes:
-      - ~/.config:/.config
       - .:/app
     command: >
-        --fhir-server http://bulk_data:9443/eyJlcnIiOiIiLCJwYWdlIjoxMDAwMDAwLCJkdXIiOjAsInRsdCI6MTUsIm0iOjEwMDAwfQ/fhir
+        --source  test-fhir-org
         --bigquery-dataset fhir-org-starter-project:bulk_data_smart_100
         --gcs-bucket fhir-bulk-data
         --parallelism 4

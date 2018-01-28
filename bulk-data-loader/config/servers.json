@@ -1,0 +1,18 @@
+[
+  {
+    "shortname": "smart-bulk-data",
+    "fhir_base_uri": "https://bulk-data.smarthealthit.org/eyJlcnIiOiIiLCJwYWdlIjoxMDAsImR1ciI6MTAsInRsdCI6MTUsIm0iOjF9/fhir",
+    "authorization": {
+      "type": "smart-backend-services",
+      "client_id": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwdWJfa2V5IjoiTFMwdExTMUNSVWRKVGlCUVZVSk1TVU1nUzBWWkxTMHRMUzBLVFVsSlFrbHFRVTVDWjJ0eGFHdHBSemwzTUVKQlVVVkdRVUZQUTBGUlxuT0VGTlNVbENRMmRMUTBGUlJVRnlhbEZOUm5OS1QzbE1kRzg1TDI1bVVtWjFTZ3BEWVdJeU1tZDFSRXRvTjA5WGNrWkxXWEFyVDFKWFxuYldKdWFWTnFiMFoyWW01WGFrWnZOelExUlVkTVoyeDZSMVZOYVVONVNsTjZhbkZJUW1sWk1XRXlDakY1VGtsb2EwWmpiR2h1TlhodVxuZDFGemQzcE1PSFZ6TkdnNFEzaERTRlJLYlRsa1dtNXVXblpHU25oS2RteFplWEJqYlN0aGRFeGpRbEZqTVRKc01uY0tWRUlyWlRZd1xuVTJSbmNHbHRVWHBrZUZWQmIzbE1PWFJEY1VKV1ltdHJXV2xrYm10TVIxTmpZek5XWnpSa2RYYzBkelp6VGxreFZsVkdiMlJ2VG14RVxuTUFwb05FUnNaVzFDWkZvd2FGTm9TalZQU0hsSVVFUldZekpoU2xkYU1VUlZLMEV4YjNsMmFXSmpVWEpRWm5KM09HVkhMMWw1VFdsVFxuVm01TVpXMU1VMlF3Q2pGb05VdGhlSEpsYTBRelFXaEpSVUkyZFZFMGVXRnJVa0ZsS3lzMlpHVXdPVmhVYldjM1ZGVTBPV0pVVnpkbVxuWWpGQlUySm5lU3RJU1ROQ01VVkxhakFLUm5kSlJFRlJRVUlLTFMwdExTMUZUa1FnVUZWQ1RFbERJRXRGV1MwdExTMHRDZz09IiwiaXNzIjoiaHR0cHM6Ly9idWxrLWRhdGEtbG9hZGVyLnNtYXJ0aGVhbHRoaXQub3JnIiwiYWNjZXNzVG9rZW5zRXhwaXJlSW4iOjE1LCJpYXQiOjE1MTcxMTgzMjJ9.vjJkD0L9QenNL8D1hcvf4CFoETKpkVt8EnPvtVLTa0U"
+    }
+  },
+  {
+    "shortname": "test-fhir-org",
+    "fhir_base_uri": "https://test.fhir.org/r3",
+    "authorization": {
+      "type": "smart-backend-services",
+      "client_id": "c.2"
+    }
+  }
+]

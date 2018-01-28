@@ -10,13 +10,19 @@ RUN google-cloud-sdk/bin/gcloud config set --installation component_manager/disa
 RUN sed -i -- 's/\"disable_updater\": false/\"disable_updater\": true/g' /google-cloud-sdk/lib/googlecloudsdk/core/config.json
 
 WORKDIR /app
-ADD requirements.txt /app/requirements.txt
 
-RUN apt-get update && apt-get install unzip && \
-    pip install -r requirements.txt && \
+RUN apt-get install unzip && \
     wget http://hl7.org/fhir/STU3/definitions.json.zip && \
     unzip definitions.json.zip profiles-resources.json profiles-types.json && \
     rm definitions.json.zip
 
+ADD requirements.txt /app/requirements.txt
+
+RUN pip install -r requirements.txt
+
 ENV PATH "$PATH:/google-cloud-sdk/bin/"
+ENV ISSUER "https://bulk-data-loader.smarthealthit.org"
+VOLUME /.config
+VOLUME /app/config
+
 ADD . /app
