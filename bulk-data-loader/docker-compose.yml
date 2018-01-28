@@ -14,8 +14,10 @@ services:
     entrypoint: python3 loader.py
     volumes:
       - .:/app
+      - ./config:/app/config
+      - ~/.config:/.config
     command: >
-        --source  test-fhir-org
+        --source smart-bulk-data
         --bigquery-dataset fhir-org-starter-project:bulk_data_smart_100
         --gcs-bucket fhir-bulk-data
         --parallelism 4

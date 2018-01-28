@@ -102,9 +102,9 @@ def make_authn_jwt(server_authorization):
         'iss': ISSUER,
         'sub': server_authorization['client_id'],
         'aud': server_authorization['token_uri'],
-        'exp': time.mktime((datetime.now() + timedelta(minutes=5)).timetuple()),
+        'exp': time.mktime((datetime.now() + timedelta(days=5)).timetuple()),
         'jti': secrets.token_hex(32)
-    }, SIGNING_KEY, 'RS512')
+    }, SIGNING_KEY, 'RS256')
 
 
 def get_access_token(server_authorization):
@@ -193,12 +193,13 @@ if __name__ == '__main__':
             time.sleep(1)
     print("Connected")
 
-    print("Syncing")
+    print("Syncing", metadata.keys())
     if server['authorization']['type'] == 'smart-backend-services':
         smart_extension = [e for e in metadata['rest'][0]['security']['extension'] if e['url'] ==
                            'http://fhir-registry.smarthealthit.org/StructureDefinition/oauth-uris'][0]
         token_uri = [e for e in smart_extension['extension']
                      if e['url'] == 'token'][0]['valueUri']
         server['authorization']['token_uri'] = token_uri
+    print("Authz", server)
     do_sync(server_url, args.gcs_bucket, args.bigquery_dataset,
             args.parallelism, server['authorization'])
