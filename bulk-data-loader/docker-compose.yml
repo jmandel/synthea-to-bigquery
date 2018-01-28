@@ -1,0 +1,18 @@
+version: '3'
+services:
+  bulk_data:
+    container_name: bulk_data
+    build:
+      context: .
+      dockerfile: Dockerfile.bulk-data
+    environment:
+        PORT: 9443
+        BASE_URL: http://bulk_data:9443
+  loader:
+    build:
+      context: .
+      dockerfile: Dockerfile.loader
+    entrypoint: python3 loader.py
+    volumes:
+      - ~/.config:/.config
+    command: --fhir-server http://bulk_data:9443/eyJlcnIiOiIiLCJwYWdlIjoxMDAsImR1ciI6MCwidGx0IjoxNSwibSI6MX0/fhir --bigquery-dataset project:bulk_data_smart_100 --gcs-bucket fhir-bulk-data --parallelism 4
