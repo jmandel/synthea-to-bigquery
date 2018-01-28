@@ -185,7 +185,7 @@ if __name__ == '__main__':
     print("Trying to connect", server_url + '/metadata')
     while True:
         try:
-            metadata = requests.get(server_url + '/metadata', {
+            metadata = requests.get(server_url + '/metadata', headers={
                 'Accept': 'application/fhir+json'}).json()
             break
         except Exception as e:
